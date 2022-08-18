@@ -1,29 +1,14 @@
-import React from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, ScrollView, Text } from 'react-native';
-import { COLORS, images, icons, SIZES, lightFONTS } from '../constants';
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
 
 const Sections = () => {
-	return (
-		<SafeAreaView style={styles.container}>
-			<StatusBar hidden={false} barStyle="dark-content" backgroundColor= {COLORS.white} translucent = {true}/>
-			<ScrollView>
-                <Text style={styles.text}>Sections</Text>
-            </ScrollView>
-		</SafeAreaView>
-	);
-};
+  return (
+	<View>
+	  <Text>Sections</Text>
+	</View>
+  )
+}
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: COLORS.white,
-		marginBottom: 70,
-        paddingTop: 30,
-        paddingHorizontal: 15,
-	},
-    text: {
-        ...lightFONTS.h4
-    }
-});
+export default Sections
 
-export default Sections;
+const styles = StyleSheet.create({})

@@ -11,9 +11,9 @@ const Tabs = () => {
     <>
       <Tab.Navigator
         screenOptions={{
+          keyboardHidesTabBar: true,
           headerShown: false,
           tabBarShowLabel: false,
-          keyboardHidesTabBar: true,
           tabBarStyle: {
             position: 'absolute',
             width: SIZES.width,
@@ -27,6 +27,19 @@ const Tabs = () => {
             elevation: 0,
           },
         }}>
+          <Tab.Screen
+            name="Home"
+            component={Home}
+            options={{
+              tabBarIcon: ({size}) => (
+                <Image
+                  source={icons.home}
+                  resizeMode="contain"
+                  style={styles.tabBarIcon}
+                />
+              ),
+            }}
+          />
         <Tab.Screen
           name="Sections"
           component={Sections}
@@ -36,19 +49,6 @@ const Tabs = () => {
                 source={icons.sections}
                 resizeMode="contain"
                 style={[styles.tabBarIcon, {width: 28, height:28}]}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Home"
-          component={Home}
-          options={{
-            tabBarIcon: ({size}) => (
-              <Image
-                source={icons.home}
-                resizeMode="contain"
-                style={styles.tabBarIcon}
               />
             ),
           }}

@@ -1,150 +1,241 @@
 import React from 'react';
 import { SafeAreaView, StatusBar, View, StyleSheet, FlatList, ImageBackground, TouchableOpacity, TouchableWithoutFeedback, ScrollView, Text, TextInput, Image } from 'react-native';
 import { COLORS, images, icons, SIZES, lightFONTS } from '../constants';
+import {restaurantData} from '../Data/Restaurant'
 
-function HomeHeader (props) {
-    return (
-        <View>
-            <Text>{props.text}</Text>
-        </View>
-    );
-}
 
-const data = [
-    {
-      id: '1',
-      title: 'Sajjan Raj Vaidya',
-      date: 'July 30',
-      type: 'Concert',
-      image : icons.home
-    },
-    {
-      id: '2',
-      title: 'Albatross LIVE',
-      date: 'Dec 08',
-      type: 'Concert',
-      image : icons.home
-    },
-    {
-      id: '3',
-      title: 'Concert',
-      date: 'April 03',
-      type: 'Concert',
-      image : icons.home
-    },
-  ];
 
-function UI () {
-    return (
-        <>
-            <View style={styles.WelcomeText}>
-            <Text style={styles.WelcomeTitle}>Welcom Back</Text>
-            <TouchableOpacity onPress={() => {
-                navigation.navigate('Profile');
-            } }>
-                <Image source={icons.cart} />
-            </TouchableOpacity>
-        </View><View style={styles.Title}>
-                <Text style={styles.TitleText}>Explore Events</Text>
-            </View><View style={styles.searchSection}>
+
+const Home = ({navigation}) => {
+
+    const userdetails = { 
+        username : "Alin",
+        location: "Kathmandu"
+    }
+
+    function Header() {
+        return (
+            <View style={styles.header}>
+                <Text style={{...lightFONTS.h4}}>Welcome Back!</Text>
+                {/* <Text style={{...lightFONTS.body3}}>{userdetails.username}</Text> */}
+                <View style={styles.location}>
+                    <TouchableOpacity onPress={() => { navigation.navigate('Search') }}>
+                        <Image source={icons.location}
+                            style={{ width: 15, height: 20}} />
+                    </TouchableOpacity>
+                    <Text style={{...lightFONTS.body3, marginHorizontal: 5}}>{userdetails.location}</Text>
+                </View>
+            </View>
+        );
+    }
+
+    function SearchBar () {
+        return (
+            <View style={styles.searchSection}>
+                <TouchableOpacity onPress={() => { navigation.navigate('Search'); }}>
+                    <Image source={icons.search}
+                        style={{ opacity: 0.4, width: 20, height: 20 }} />
+                </TouchableOpacity>
                 <TextInput
                     placeholder='Search'
                     style={styles.searchInput} />
-
-                <TouchableOpacity onPress={() => { navigation.navigate('Search'); } }>
-                    <Image source={icons.profile}
-                        style={{ opacity: 0.4 }} />
+                <TouchableOpacity onPress={() => { navigation.navigate('Search'); }}>
+                    <Image source={icons.filter}
+                        style={{ width: 26, height: 17 }} />
                 </TouchableOpacity>
-            </View><View style={styles.featuredSection}>
-                <Text style={styles.featuredTitle}>FEATURED</Text>
-                <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    data={data}
-                    renderItem={(event) => {
-                        return (
-                            <TouchableWithoutFeedback
-                                onPress={() => {
-                                    navigation.navigate('My Events');
-                                } }
-                            >
-                                <View style={{
-                                    marginBottom: 20,
-                                    overflow: 'hidden'
-                                    // marginRight: -10,
-                                }}>
-                                    <ImageBackground source={event.item.image}
-                                        resizeMode='cover'
-                                        borderRadius={15}
-                                        style={{
-                                            width: 210,
-                                            height: 210,
-                                            justifyContent: 'space-between',
-                                            margin: 10,
-                                        }}>
-                                        <View style={{
-                                            display: 'flex',
-                                            margin: 10,
-                                            flexDirection: 'column',
-                                            justifyContent: 'flex-end',
-                                        }}>
-                                            <View style={{
-                                                width: 60,
-                                                height: 60,
-                                                backgroundColor: 'white',
-                                                borderRadius: 10,
-                                                alignSelf: 'flex-end',
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                            }}>
-                                                <Text style={{
-                                                    fontFamily: 'ProductSansBold',
-                                                    fontSize: 15,
-                                                }}>{event.item.date}</Text>
-                                            </View>
-                                            <View style={{
-                                                bottom: -80,
-                                                padding: 10,
-                                                width: 193,
-                                                borderRadius: 10,
-                                                opacity: 0.8,
-                                                backgroundColor: '#121212'
-                                            }}>
-                                                <Text style={{
-                                                    color: 'white',
-                                                    opacity: 0.7,
-                                                    fontFamily: 'ProductSansBold',
-                                                    fontSize: 13
-                                                }}>{event.item.type}</Text>
-                                                <Text style={{
-                                                    color: 'white',
-                                                    fontFamily: 'ProductSansBlack',
-                                                    fontSize: 17,
-                                                }}>{event.item.title}</Text>
-                                            </View>
-                                        </View>
+            </View>
+        );
+    }
 
-                                    </ImageBackground>
-                                </View>
-                            </TouchableWithoutFeedback>
-                        );
-                    } } />
-            </View></>
-    )
-}
+    function RestaurantList () {
+        const renderItem = ({ item , id }) => {
+            return (
+                <TouchableOpacity
+                onPress ={() => {navigation.navigate("Menu" ,{item})}}
+                    style={{
+                        padding: SIZES.padding,
+                        paddingBottom: SIZES.padding * 2,
+                        backgroundColor: COLORS.white,
+                        borderRadius: SIZES.radius,
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
+                    
+                >
+                    <View
+                        style={{
+                            width: 145,
+                            height: 190,
+                            borderRadius: 25,
+                            flexDirection: 'column',
+                            // justifyContent: 'space-between',
+                            alignItems: 'center',
+                            backgroundColor: 'white',
+                            shadowColor: "#000",
+                            shadowOffset: {
+                                width: 0,
+                                height: 2,
+                            },
+                            shadowOpacity: 0.25,
+                            shadowRadius: 3.84,
 
-const Home = () => {
+                            elevation: 5,
+                        }}
+                    >
+                        <Image
+                            source={item.image}
+                            resizeMode="contain"
+                            style={{
+                                width: 145,
+                                height: 120
+                            }}
+                        />
+                    <View style={{flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', alignSelf: 'flex-start', marginLeft: 10}}>
+                    <Text
+                        style={{
+                            ...lightFONTS.h6,
+                        }}
+                    >
+                        {item.RestaurantName}
+                    </Text>
+                    <Text
+                        style={{
+                            ...lightFONTS.body4,
+                            color: COLORS.red,
+                        }}
+                    >
+                        {item.rating}
+                    </Text>
+                    <Text
+                        style={{
+                            ...lightFONTS.body4, 
+                            color: COLORS.red,
+                        }}
+                    >
+                        {item.distance}
+                    </Text>
+
+                    </View>
+                    </View>
+
+                </TouchableOpacity>
+            )
+        }
+        return (
+            <View style={styles.featuredSection}>
+                <Text style={{...lightFONTS.h4, margin: SIZES.padding}}>Top Restaurants</Text>
+                    <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={restaurantData}
+                        keyExtractor = {item => `${item.id}`}
+                        renderItem={renderItem} />
+                </View>
+        );
+    }
+
+    function FoodList () {
+        const renderFoodItem = ({ item , id }) => {
+            return (
+                <TouchableOpacity
+                onPress ={() => {navigation.navigate("Menu" ,{item})}}
+                    style={{
+                        padding: SIZES.padding,
+                        paddingBottom: SIZES.padding * 2,
+                        backgroundColor: COLORS.white,
+                        borderRadius: SIZES.radius,
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
+                    
+                >
+                    <View
+                        style={{
+                            width: 145,
+                            height: 190,
+                            borderRadius: 25,
+                            flexDirection: 'column',
+                            // justifyContent: 'space-between',
+                            alignItems: 'center',
+                            backgroundColor: 'white',
+                            shadowColor: "#000",
+                            shadowOffset: {
+                                width: 0,
+                                height: 2,
+                            },
+                            shadowOpacity: 0.25,
+                            shadowRadius: 3.84,
+
+                            elevation: 5,
+                        }}
+                    >
+                        <Image
+                            source={item.menu.photo}
+                            resizeMode="contain"
+                            style={{
+                                width: 145,
+                                height: 120
+                            }}
+                        />
+                    <View style={{flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'flex-start', alignSelf: 'flex-start', marginLeft: 10}}>
+                    <Text
+                        style={{
+                            ...lightFONTS.h6,
+                        }}
+                    >
+                        {item.menu.name}
+                    </Text>
+                    <Text
+                        style={{
+                            ...lightFONTS.body4,
+                            color: COLORS.red,
+                        }}
+                    >
+                        {item.menu.price}
+                    </Text>
+                    <Text
+                        style={{
+                            ...lightFONTS.body4, 
+                            color: COLORS.red,
+                        }}
+                    >
+                        {item.menu.calories}
+                    </Text>
+
+                    </View>
+                    </View>
+
+                </TouchableOpacity>
+            )
+        }
+        return (
+            <View>
+                <Text style={{...lightFONTS.h5, margin: SIZES.padding, color: COLORS.red}}>Recommended Dishes</Text>
+                    <FlatList
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        data={restaurantData}
+                        keyExtractor = {item => `${item.id}`}
+                        renderItem={renderFoodItem} />
+                </View>
+        );
+    }
+
 	return (
 		<SafeAreaView style={styles.container}>
 			<StatusBar hidden={false} barStyle="dark-content" backgroundColor= {COLORS.white} translucent = {true}/>
 			<ScrollView>
-                <ImageBackground source={images.background} style = {styles.background}>
-                    <UI />
-                </ImageBackground>
+                {/* <ImageBackground source={images.background} style = {styles.background}> */}
+                    <Header />
+                    <SearchBar />
+                    <RestaurantList />
+                    <FoodList />
+                {/* </ImageBackground> */}
             </ScrollView>
 		</SafeAreaView>
 	);
 };
+
 
 const styles = StyleSheet.create({
 	container: {
@@ -158,59 +249,33 @@ const styles = StyleSheet.create({
         width: SIZES.width,
         height: SIZES.height
     },
-    WelcomeText: {
-        display: 'flex',
+    header: {
+        margin: SIZES.padding,
+        flexDirection: 'column',
+    },
+    location: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        top: 30,
-        marginHorizontal: 15,
-      },
-      WelcomeTitle: {
-        ...lightFONTS.h3
-      },
-    
-      Title:{
-        // backgroundColor: 'grey',
-        // top: 35,
-        marginVertical: 30,
-        marginHorizontal: 15,
-      },
-      TitleText: {
-        ...lightFONTS.body3
-      },
-    
-      searchSection:{
-        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    searchSection:{
+        // flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        backgroundColor: '#121212',
-        marginHorizontal: 25,
-        marginVertical: -18,
-        padding: 10,
-        borderWidth: 3,
-        borderRadius: 16,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        backgroundColor: '#F3F4F9',
+        paddingHorizontal: SIZES.padding,
+        width: SIZES.width-30,
+        height: 40,
+        margin: SIZES.padding,
+        borderRadius: SIZES.padding
       },
       searchInput: {
+        ...lightFONTS.body4,
         marginLeft: 10,
-        marginTop: 5,
-        width: 270,
-        height: 25,
-        color: 'white',
-        fontSize: 17,
+        width: 288,
+        height: 56,
       },
-      featuredSection:{
-        marginStart: 15,
-        marginTop: 40,
-      },
-      featuredTitle: {
-        color: 'white',
-        fontFamily: 'ProductSansBold',
-        fontSize: 20,
-    
-      },
-      foryouSection: {
-        marginHorizontal: 15,
-      }
     
 });
 

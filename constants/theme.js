@@ -11,8 +11,8 @@ export const COLORS = {
 
   lime: '#00BA63',
   emerald: '#2BC978',
-
-  red: '#ED4756',
+  
+  red: '#ee3037',
   lightRed: '#FFF1F0',
 
   purple: '#6B3CE9',
@@ -45,6 +45,8 @@ export const SIZES = {
   h2: 22,
   h3: 20,
   h4: 18,
+  h5: 16,
+  h6: 14,
   body1: 30,
   body2: 20,
   body3: 16,
@@ -66,6 +68,8 @@ export const lightFONTS = {
   h2: {fontFamily: 'Bold', fontSize: SIZES.h2, lineHeight: 30},
   h3: {fontFamily: 'Bold', fontSize: SIZES.h3, lineHeight: 22},
   h4: {fontFamily: 'Bold', fontSize: SIZES.h4, lineHeight: 22},
+  h5: {fontFamily: 'Bold', fontSize: SIZES.h5, lineHeight: 20},
+  h6: {fontFamily: 'Bold', fontSize: SIZES.h6, lineHeight: 20},
   body1: {fontFamily: 'Regular', fontSize: SIZES.body1, lineHeight: 36},
   body2: {fontFamily: 'Regular', fontSize: SIZES.body2, lineHeight: 30},
   body3: {fontFamily: 'Regular', fontSize: SIZES.body3, lineHeight: 22},
