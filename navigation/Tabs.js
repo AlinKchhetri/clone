@@ -2,7 +2,7 @@ import React from 'react';
 import {Image, StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Home, Sections, Cart, Profile} from '../screens/index';
-import {COLORS, icons, SIZES} from '../constants';
+import {COLORS, icons, SIZES, svgs} from '../constants';
 
 const Tab = createBottomTabNavigator();
 
@@ -10,58 +10,64 @@ const Tabs = () => {
   return (
     <>
       <Tab.Navigator
+      initialRouteName='Messagges'
         screenOptions={{
           keyboardHidesTabBar: true,
           headerShown: false,
-          tabBarShowLabel: false,
+          // tabBarShowLabel: false,
+          tabBarLabelPosition: 'below-icon',
+          tabBarLabelStyle: {
+            fontSize: 12,
+          },
           tabBarStyle: {
             position: 'absolute',
             width: SIZES.width,
-            height: (SIZES.height * 74) / SIZES.height,
+            height: (SIZES.height * 60) / SIZES.height,
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
+            marginBottom: 5,
             bottom: 0,
             left: 0,
             right: 0,
-            backgroundColor: '#EE3037',
+            backgroundColor: '#FFF',
             elevation: 0,
           },
         }}>
           <Tab.Screen
-            name="Home"
+            name="Messagges"
             component={Home}
             options={{
-              tabBarIcon: ({size}) => (
+              tabBarIcon: ({focused}) => (
                 <Image
-                  source={icons.home}
+                  source={svgs.messages}
                   resizeMode="contain"
-                  style={styles.tabBarIcon}
+                  style={[styles.tabBarIcon, {tintColor: focused ? '#1987ff' : 'black'}]}
                 />
               ),
             }}
           />
         <Tab.Screen
-          name="Sections"
+          name="Roster"
           component={Sections}
           options={{
-            tabBarIcon: () => (
+            tabBarIcon: ({focused}) => (
               <Image
-                source={icons.sections}
+                source={svgs.roster}
                 resizeMode="contain"
-                style={[styles.tabBarIcon, {width: 28, height:28}]}
+                style={[styles.tabBarIcon, {tintColor: focused ? '#1987ff' : 'black'}]}
               />
             ),
           }}
         />
         <Tab.Screen
-          name="Cart"
+          name="Pays"
           component={Cart}
           options={{
-            tabBarIcon: () => (
+            tabBarIcon: ({focused}) => (
               <Image
-                source={icons.cart}
+                source={svgs.pays}
                 resizeMode="contain"
-                style={styles.tabBarIcon}
+                style={[styles.tabBarIcon, {tintColor: focused ? '#1987ff' : 'black'}]}
               />
             ),
           }}
@@ -70,11 +76,11 @@ const Tabs = () => {
           name="Profile"
           component={Profile}
           options={{
-            tabBarIcon: () => (
+            tabBarIcon: ({focused}) => (
               <Image
-                source={icons.profile}
+                source={svgs.profile}
                 resizeMode="contain"
-                style={[styles.tabBarIcon, {width: 23, height:23}]}
+                style={[styles.tabBarIcon, {tintColor: focused ? '#1987ff' : 'black'}]}
               />
             ),
           }}
