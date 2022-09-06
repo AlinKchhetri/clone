@@ -7,7 +7,10 @@ const Home = ({ navigation }) => {
 	return (
 		<SafeAreaView style={styles.container}>
 			<StatusBar hidden={false} barStyle="dark-content" backgroundColor={COLORS.white} translucent={true} />
-
+			<Text>Hello</Text>
+			<TouchableOpacity onPress={() => navigation.navigate('Timeline')}>
+				<Text>Click</Text>
+			</TouchableOpacity>
 		</SafeAreaView>
 	);
 };
@@ -18,8 +21,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: COLORS.white,
 		marginBottom: 50,
-		marginTop: 30,
-		paddingTop: 30,
 	},
 
 });

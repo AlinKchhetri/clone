@@ -2,6 +2,7 @@ import React from 'react';
 import {Image, StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Home, Sections, Cart, Profile} from '../screens/index';
+import MessageStack from './stack';
 import {COLORS, icons, SIZES, svgs} from '../constants';
 
 const Tab = createBottomTabNavigator();
@@ -13,7 +14,7 @@ const Tabs = () => {
       initialRouteName='Messagges'
         screenOptions={{
           keyboardHidesTabBar: true,
-          headerShown: false,
+          // headerShown: false,
           // tabBarShowLabel: false,
           tabBarLabelPosition: 'below-icon',
           tabBarLabelStyle: {
@@ -35,8 +36,9 @@ const Tabs = () => {
         }}>
           <Tab.Screen
             name="Messagges"
-            component={Home}
+            component={MessageStack}
             options={{
+              headerShown: false,
               tabBarIcon: ({focused}) => (
                 <Image
                   source={svgs.messages}
